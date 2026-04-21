@@ -131,15 +131,80 @@ h2 {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.95);
+    overflow-y: auto;
+    z-index: 1000;
 }
 
 .modal-box {
     background: #020617;
-    width: 80%;
-    margin: 5% auto;
-    padding: 20px;
+    width: 85%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
     border-radius: 10px;
+    border: 1px solid #38bdf8;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.modal-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.modal-images img {
+    width: 100%;
+    border-radius: 8px;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.project-info {
+    margin: 20px 0;
+}
+
+.project-info h3 {
+    color: #38bdf8;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.location-badge {
+    background: #064e3b;
+    color: #86efac;
+    padding: 8px 12px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.skills-list span {
+    background: #38bdf8;
+    color: black;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
 }
 
 /* BUTTON */
@@ -206,7 +271,7 @@ h2 {
 
     <div class="projects-grid">
 
-        <div onclick="toggleProject('eai')" class="project-card">
+        <div onclick="openModal('eai')" class="project-card">
             <img src="images/eai.png">
             <div class="project-overlay">
                 <div class="project-title">Solix EAI</div>
@@ -214,7 +279,7 @@ h2 {
             </div>
         </div>
 
-        <div onclick="toggleProject('cyber')" class="project-card">
+        <div onclick="openModal('cyber')" class="project-card">
             <img src="images/cyber.png">
             <div class="project-overlay">
                 <div class="project-title">CyberSphere</div>
@@ -273,23 +338,59 @@ function toggleProject(id){
 function openModal(type){
 
     const data = {
-        eai: `
-        <h2>EAI Automation Framework</h2>
-        <pre>
-helpers/
-pages/
-tests/
-conftest.py
-pytest.ini
-        </pre>
-
-        ✔ Dynamic data generation  
-        ✔ Retry logic  
-        ✔ Reporting integration  
-        `
+        eai: {
+            title: "EAI Automation Framework",
+            location: "Remote",
+            images: ["images/automation.png", "images/eai.png", "images/EAI.webp", "https://th.bing.com/th/id/OIP.ihlbbiJ2MqaLZ2KQQz9Q0gHaEK?w=321&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3"],
+            description: "Developed a comprehensive Playwright + Pytest automation framework for end-to-end testing of enterprise applications. Implemented Page Object Model (POM) design pattern for scalable and maintainable test code.",
+            skills: ["Playwright", "Python", "Pytest", "POM Design", "Allure Reporting", "ReportPortal Integration", "Test Automation", "CI/CD"]
+        },
+        cyber: {
+            title: "CyberSphere - API & Infrastructure Testing",
+            location: "Deloitte, India",
+            images: ["images/cyber.png"],
+            description: "Automated API testing and AWS infrastructure validation for CyberSphere project. Integrated tests with Azure DevOps CI/CD pipeline for continuous monitoring and reporting.",
+            skills: ["API Testing", "AWS", "Azure DevOps", "SQL", "RestAssured", "Performance Testing", "CI/CD Integration", "Cloud Testing"]
+        }
     };
 
-    document.getElementById("modalContent").innerHTML = data[type];
+    const project = data[type];
+    
+    let imagesHTML = '';
+    if(project.images && project.images.length > 0) {
+        imagesHTML = '<div class="modal-images">' + 
+                     project.images.map(img => `<img src="${img}" alt="project-screenshot">`).join('') + 
+                     '</div>';
+    }
+
+    let skillsHTML = '';
+    if(project.skills && project.skills.length > 0) {
+        skillsHTML = '<div class="skills-list">' + 
+                     project.skills.map(skill => `<span>${skill}</span>`).join('') + 
+                     '</div>';
+    }
+
+    const modalContent = `
+        <div class="modal-header">
+            <h2>${project.title}</h2>
+        </div>
+        
+        <div class="location-badge">📍 ${project.location}</div>
+        
+        ${imagesHTML}
+        
+        <div class="project-info">
+            <h3>Project Description</h3>
+            <p>${project.description}</p>
+        </div>
+        
+        <div class="project-info">
+            <h3>Skills & Technologies Gained</h3>
+            ${skillsHTML}
+        </div>
+    `;
+
+    document.getElementById("modalContent").innerHTML = modalContent;
     document.getElementById("modal").style.display="block";
 }
 
