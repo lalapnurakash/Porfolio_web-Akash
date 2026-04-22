@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akash Lalapnur — SDET & QA Automation Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0a0a0f;
+    --surface:   #111118;
+    --card:      #16161f;
+    --border:    #ffffff0f;
+    --accent:    #00e5a0;
+    --accent2:   #7b5ea7;
+    --amber:     #f5a623;
+    --text:      #e8e8f0;
+    --muted:     #7a7a9a;
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 7%;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-head); font-weight: 800; font-size: 1.1rem;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-logo .avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 2px solid var(--accent);
+    object-fit: cover;
+    /* REPLACE with your GitHub avatar URL:
+       src="https://avatars.githubusercontent.com/YOUR_USERNAME" */
+  }
+
+  .nav-links { display: flex; gap: 30px; }
+
+  .nav-links a {
+    font-family: var(--font-mono); font-size: 0.78rem;
+    color: var(--muted); text-decoration: none;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 7% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,229,160,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute; bottom: -100px; left: -100px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,94,167,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center; width: 100%; max-width: 1200px;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase;
+    border: 1px solid rgba(0,229,160,0.3); border-radius: 99px;
+    padding: 6px 14px; margin-bottom: 28px;
+  }
+
+  .hero-tag::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-family: var(--font-head); font-weight: 800;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.05; letter-spacing: -2px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 .accent { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 1.05rem; color: var(--muted); max-width: 480px;
+    margin-bottom: 36px; line-height: 1.8;
+  }
+
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-primary {
+    padding: 13px 28px;
+    background: var(--accent); color: #0a0a0f;
+    font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500;
+    border: none; border-radius: 8px; cursor: pointer; text-decoration: none;
+    letter-spacing: 0.05em; transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+
+  .btn-ghost {
+    padding: 13px 28px;
+    background: transparent; color: var(--text);
+    font-family: var(--font-mono); font-size: 0.8rem;
+    border: 1px solid var(--border); border-radius: 8px; cursor: pointer; text-decoration: none;
+    letter-spacing: 0.05em; transition: border-color 0.2s, transform 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  /* HERO PROFILE CARD */
+  .hero-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  .profile-img-wrap {
+    width: 110px; height: 110px; border-radius: 50%;
+    border: 3px solid var(--accent);
+    overflow: hidden; margin: 0 auto 20px;
+    position: relative;
+  }
+
+  .profile-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+
+  /* AVATAR FALLBACK */
+  .avatar-fallback {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-head); font-size: 2.4rem; font-weight: 800;
+    color: white;
+  }
+
+  .hero-card-name {
+    text-align: center;
+    font-family: var(--font-head); font-weight: 700; font-size: 1.3rem;
+    margin-bottom: 4px;
+  }
+
+  .hero-card-role {
+    text-align: center;
+    font-family: var(--font-mono); font-size: 0.75rem;
+    color: var(--accent); letter-spacing: 0.1em;
+    margin-bottom: 24px;
+  }
+
+  .stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .stat-box {
+    background: var(--surface);
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--font-head); font-weight: 800; font-size: 1.6rem;
+    color: var(--accent); line-height: 1;
+  }
+
+  .stat-label {
+    font-family: var(--font-mono); font-size: 0.65rem;
+    color: var(--muted); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-top: 4px;
+  }
+
+  /* ── SECTION BASE ── */
+  section:not(#home) {
+    padding: 100px 7%;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: var(--font-head); font-weight: 800;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    letter-spacing: -1px; margin-bottom: 48px;
+    line-height: 1.1;
+  }
+
+  .section-title span { color: var(--accent); }
+
+  /* ── SKILLS ── */
+  #skills { padding: 100px 7%; }
+
+  .skills-wrapper {
+    max-width: 1300px; margin: 0 auto;
+  }
+
+  .skills-columns {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .skill-group {
+    background: var(--card);
+    border: 1px solid var(--border); border-radius: 16px;
+    padding: 24px;
+    transition: border-color 0.3s;
+  }
+  .skill-group:hover { border-color: rgba(0,229,160,0.3); }
+
+  .skill-group-title {
+    font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--amber); letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+  }
+
+  .skill-group-title::before {
+    content: ''; width: 3px; height: 14px; background: var(--amber); border-radius: 2px;
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .skill-tag {
+    font-family: var(--font-mono); font-size: 0.72rem;
+    padding: 5px 12px; border-radius: 99px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .skill-tag:hover {
+    background: rgba(0,229,160,0.1);
+    border-color: rgba(0,229,160,0.4);
+    color: var(--accent);
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { padding: 100px 7%; }
+  .exp-wrapper { max-width: 1300px; margin: 0 auto; }
+
+  .timeline {
+    position: relative;
+    padding-left: 36px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 1px; background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+  }
+
+  .timeline-item {
+    position: relative; margin-bottom: 48px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .timeline-dot {
+    position: absolute; left: -32px; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); border: 3px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  .timeline-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .timeline-card:hover { border-color: rgba(0,229,160,0.3); transform: translateX(4px); }
+
+  .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 6px; }
+
+  .tl-role {
+    font-family: var(--font-head); font-weight: 700; font-size: 1.15rem;
+  }
+
+  .tl-date {
+    font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--muted); padding: 4px 12px;
+    border: 1px solid var(--border); border-radius: 99px;
+    white-space: nowrap;
+  }
+
+  .tl-company {
+    font-family: var(--font-mono); font-size: 0.78rem;
+    color: var(--accent); letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+
+  .tl-project {
+    display: inline-block;
+    font-family: var(--font-mono); font-size: 0.68rem;
+    color: var(--amber); letter-spacing: 0.1em; text-transform: uppercase;
+    background: rgba(245,166,35,0.08);
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 99px; padding: 3px 10px;
+    margin-bottom: 16px;
+  }
+
+  .tl-points { list-style: none; }
+  .tl-points li {
+    font-size: 0.9rem; color: var(--muted);
+    padding: 5px 0 5px 20px; position: relative;
+    line-height: 1.65;
+  }
+  .tl-points li::before {
+    content: '▸'; position: absolute; left: 0;
+    color: var(--accent); font-size: 0.75rem;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { padding: 100px 7%; }
+  .proj-wrapper { max-width: 1300px; margin: 0 auto; }
+
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border); border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+    cursor: pointer;
+  }
+  .project-card:hover { transform: translateY(-6px); border-color: rgba(0,229,160,0.35); }
+
+  .project-img {
+    width: 100%; height: 190px; object-fit: cover;
+    display: block;
+    /* Fallback gradient used if image fails to load */
+    background: linear-gradient(135deg, #16161f, #1e1e2f);
+  }
+
+  .project-img-placeholder {
+    width: 100%; height: 190px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+  }
+
+  .project-body { padding: 22px; }
+
+  .project-domain {
+    font-family: var(--font-mono); font-size: 0.68rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 8px;
+  }
+
+  .project-title {
+    font-family: var(--font-head); font-weight: 700; font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+
+  .project-desc {
+    font-size: 0.875rem; color: var(--muted);
+    line-height: 1.7; margin-bottom: 16px;
+  }
+
+  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .stack-pill {
+    font-family: var(--font-mono); font-size: 0.65rem;
+    padding: 3px 10px; border-radius: 99px;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.2);
+    color: var(--accent);
+  }
+
+  /* ── CONTACT ── */
+  #contact { padding: 100px 7%; }
+  .contact-wrapper { max-width: 1300px; margin: 0 auto; }
+
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; align-items: start;
+  }
+
+  .contact-info { }
+
+  .contact-info p {
+    font-size: 1rem; color: var(--muted);
+    line-height: 1.9; margin-bottom: 32px;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 14px; }
+
+  .contact-link {
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--font-mono); font-size: 0.82rem;
+    color: var(--text); text-decoration: none;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 18px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
+
+  .contact-link-icon {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: rgba(0,229,160,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+
+  .resume-block {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 36px;
+    position: relative; overflow: hidden;
+    text-align: center;
+  }
+
+  .resume-block::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+  }
+
+  .resume-block h3 {
+    font-family: var(--font-head); font-size: 1.3rem;
+    font-weight: 700; margin-bottom: 10px;
+  }
+  .resume-block p { font-size: 0.9rem; color: var(--muted); margin-bottom: 24px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 7%;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+
+  footer p {
+    font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  footer span { color: var(--accent); }
+
+  /* ── MODAL ── */
+  #modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.88); backdrop-filter: blur(8px);
+    z-index: 200; justify-content: center; align-items: center;
+    padding: 20px;
+  }
+  #modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: var(--card); border: 1px solid rgba(0,229,160,0.25);
+    border-radius: 20px; width: 100%; max-width: 800px;
+    max-height: 85vh; overflow-y: auto;
+    padding: 32px; position: relative;
+  }
+
+  .modal-box::-webkit-scrollbar { width: 4px; }
+  .modal-box::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
+
+  .modal-close {
+    position: sticky; top: 0; left: 100%;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.08); border: 1px solid var(--border);
+    color: var(--text); cursor: pointer; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s; z-index: 10; float: right;
+  }
+  .modal-close:hover { background: rgba(0,229,160,0.2); color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .hero-tag { justify-content: center; }
+    .hero-sub { margin: 0 auto 36px; }
+    .hero-btns { justify-content: center; }
+    .contact-grid { grid-template-columns: 1fr; }
+    nav { padding: 14px 5%; }
+    .nav-links { gap: 18px; }
+    section:not(#home) { padding: 70px 5%; }
+    #skills, #experience, #projects, #contact { padding: 70px 5%; }
+    footer { padding: 20px 5%; }
+  }
+
+  @media (max-width: 540px) {
+    .nav-links a { font-size: 0.68rem; }
+    .hero h1 { font-size: 2.4rem; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── ANIMATE ON SCROLL ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+
+  /*add this */ 
+  /* ── CYBERPUNK ROTATING RING ── */
+.cyber-ring {
+  position: relative;
+  display: inline-block;
+}
+
+.cyber-ring::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--accent),
+    transparent 30%,
+    var(--accent2),
+    transparent 60%,
+    var(--accent)
+  );
+  animation: rotateRing 3s linear infinite;
+  z-index: 0;
+  filter: blur(1px);
+}
+
+.cyber-ring::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--card);
+  z-index: 1;
+}
+
+@keyframes rotateRing {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* for square cards (projects) */
+.cyber-ring-square::before,
+.cyber-ring-square::after {
+  border-radius: 16px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <!--
+      TO ADD YOUR GITHUB PROFILE PIC:
+      Replace the avatar-fallback div below with:
+      <img class="avatar" src="https://avatars.githubusercontent.com/YOUR_GITHUB_USERNAME" alt="Akash">
+    -->
+    <div style="width:38px;height:38px;border-radius:50%;border:2px solid var(--accent);overflow:hidden;flex-shrink:0">
+      <div class="avatar-fallback" style="font-size:1rem">AL</div>
+    </div>
+    Portfolio
+  </div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">Available for opportunities</div>
+      <h1>QA Automation<br><span class="accent">Engineer</span></h1>
+      <p class="hero-sub">
+        4 years of experience in end-to-end testing of web applications across
+        <strong>Cybersecurity, FinTech, and Insurance</strong> domains.
+        Expert in Playwright, Selenium, Python & Java automation.
+      </p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="profile-img-wrap">
+        <!--
+          TO ADD YOUR GITHUB PROFILE PIC:
+          Replace the avatar-fallback div below with:
+          <img src="https://avatars.githubusercontent.com/YOUR_GITHUB_USERNAME" alt="Akash Lalapnur">
+
+          TO USE AN IMAGE FROM YOUR GITHUB REPO:-->
+<img src="https://github.com/lalapnurakash/Porfolio_web-Akash/raw/master/images/profile_pic.webp" alt="Profile Picture" >
+        <div class="avatar-fallback">AL</div>
+      </div>
+      <div class="hero-card-name">Akash Lalapnur</div>
+      <div class="hero-card-role">SDET · QA Automation Engineer</div>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Yrs Exp</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Companies</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Defects Tracked</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Domains</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<div id="skills">
+  <div class="skills-wrapper">
+    <div class="section-label reveal">Technical Arsenal</div>
+    <h2 class="section-title reveal">Skills &amp; <span>Tools</span></h2>
+
+    <div class="skills-columns">
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Programming Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Core Java</span>
+          <span class="skill-tag">JavaScript</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Frameworks &amp; Patterns</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Playwright</span>
+          <span class="skill-tag">Selenium WebDriver</span>
+          <span class="skill-tag">Pytest</span>
+          <span class="skill-tag">TestNG</span>
+          <span class="skill-tag">Cucumber BDD</span>
+          <span class="skill-tag">POM</span>
+          <span class="skill-tag">TDD</span>
+          <span class="skill-tag">Hybrid Framework</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">DevOps &amp; CI/CD</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Azure DevOps</span>
+          <span class="skill-tag">Jenkins</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Atlassian Jira</span>
+          <span class="skill-tag">Katalon Studio</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Cloud &amp; Data</div>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS (S3, RDS, Lambda)</span>
+          <span class="skill-tag">Azure Databricks</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">MS SQL Server</span>
+          <span class="skill-tag">PostgreSQL</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">API &amp; Formats</div>
+        <div class="skill-tags">
+          <span class="skill-tag">REST API</span>
+          <span class="skill-tag">Postman</span>
+          <span class="skill-tag">JSON</span>
+          <span class="skill-tag">XML</span>
+          <span class="skill-tag">HTML/CSS</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Testing Types</div>
+        <div class="skill-tags">
+          <span class="skill-tag">UI Automation</span>
+          <span class="skill-tag">API Testing</span>
+          <span class="skill-tag">Regression</span>
+          <span class="skill-tag">Sanity</span>
+          <span class="skill-tag">UAT</span>
+          <span class="skill-tag">Security Testing</span>
+          <span class="skill-tag">Database Validation</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div id="experience">
+  <div class="exp-wrapper">
+    <div class="section-label reveal">Career Journey</div>
+    <h2 class="section-title reveal">Work <span>Experience</span></h2>
+
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div class="tl-role">QA Engineer</div>
+            <div class="tl-date">Aug 2025 – Oct 2025</div>
+          </div>
+          <div class="tl-company">Solix Technologies · Hyderabad</div>
+          <div class="tl-project">Project: EAI — Enterprise AI</div>
+          <ul class="tl-points">
+            <li>Designed and implemented automated UI functional test scripts using <strong>Pytest</strong> and <strong>Playwright</strong>, following the Page Object Model (POM) design pattern for reusability and scalability.</li>
+            <li>Developed test scenarios based on business requirements and user workflows; documented execution steps and maintenance procedures to support team onboarding.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot" style="background:var(--accent2)"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div class="tl-role">Automation Test Engineer</div>
+            <div class="tl-date">Apr 2024 – Jan 2025</div>
+          </div>
+          <div class="tl-company">Deloitte India · Hyderabad</div>
+          <div class="tl-project">Project: CyberSphere — Cybersecurity</div>
+          <ul class="tl-points">
+            <li>Automated <strong>REST API</strong> and Web GUI test strategies, significantly improving regression coverage.</li>
+            <li>Validated <strong>AWS cloud infrastructure</strong> (S3, RDS, Lambda, Glue, Step Functions, Event Bridges) for tenant data workflows, ensuring security compliance and end-to-end system integration.</li>
+            <li>Collaborated with stakeholders to automate UAT scenarios; managed test cases and bug tracking via <strong>Azure DevOps</strong>.</li>
+            <li>Integrated <strong>Power BI</strong> chart components with data validation from Azure Databricks database.</li>
+            <li>Committed automation scripts via Azure Repo (Git); achieved 100% closure on reported defects before releases.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot" style="background:var(--amber)"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div class="tl-role">Software Test Engineer</div>
+            <div class="tl-date">Sept 2022 – Nov 2023</div>
+          </div>
+          <div class="tl-company">3i Infotech Ltd · Hyderabad</div>
+          <div class="tl-project">Project: S3 Partners — FinTech</div>
+          <ul class="tl-points">
+            <li>Developed and executed automated sanity tests for the <strong>BLACK App</strong>, including file extractions and ZIP to CSV conversion, while validating Bloomberg data against FactSet.</li>
+            <li>Created keyword-driven automation test scripts integrated with <strong>CI/CD (Jenkins)</strong> to streamline deployment processes.</li>
+            <li>Conducted manual testing for .NET and Tableau, and automated API testing for regression and sanity coverage.</li>
+            <li>Reconciled published data using Beyond Compare and shared reports with on-site/offshore stakeholders.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot" style="background:#e06c75"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div class="tl-role">QA Engineer</div>
+            <div class="tl-date">Aug 2020 – Jun 2022</div>
+          </div>
+          <div class="tl-company">ADP · Hyderabad</div>
+          <div class="tl-project">Project: Eeforms — Insurance</div>
+          <ul class="tl-points">
+            <li>Automated UI validation for insurance workflows (policy details, premium calculations) and API testing for critical modules using <strong>Java, Selenium, TestNG, and Cucumber BDD</strong>.</li>
+            <li>Reported <strong>200+ defects</strong> via Jira; updated regression suites to align with product enhancements.</li>
+            <li>Implemented data-driven testing with TestNG's Data Provider and integrated Extent Reports.</li>
+            <li>Monitored test results, analyzed failures and troubleshot issues using Selenium logs and SQL queries.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div id="projects">
+  <div class="proj-wrapper">
+    <div class="section-label reveal">Featured Work</div>
+    <h2 class="section-title reveal">Projects</h2>
+
+    <div class="projects-grid">
+
+      <!-- EAI -->
+      <div class="project-card reveal" onclick="openModal('eai')">
+        <!--
+          TO ADD PROJECT IMAGE FROM GITHUB:
+          Replace the placeholder div with:
+          <img class="project-img" src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/images/eai.png" alt="EAI">
+        -->
+        <div class="project-img-placeholder" style="background:linear-gradient(135deg,#0f2027,#203a43,#2c5364)">🤖</div>
+        <div class="project-body">
+          <div class="project-domain">Enterprise AI · Solix</div>
+          <div class="project-title">EAI Automation Framework</div>
+          <p class="project-desc">Built end-to-end UI automation for an Enterprise AI platform using Playwright and Pytest, following POM design for scalability.</p>
+          <div class="project-stack">
+            <span class="stack-pill">Playwright</span>
+            <span class="stack-pill">Pytest</span>
+            <span class="stack-pill">Python</span>
+            <span class="stack-pill">POM</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CyberSphere -->
+      <div class="project-card reveal" onclick="openModal('cyber')">
+        <div class="project-img-placeholder" style="background:linear-gradient(135deg,#0d0d1a,#1a0533,#0d1b2a)">🛡️</div>
+        <div class="project-body">
+          <div class="project-domain">Cybersecurity · Deloitte</div>
+          <div class="project-title">CyberSphere QA Suite</div>
+          <p class="project-desc">Full-stack test automation covering REST APIs, AWS cloud infrastructure validation, and Power BI data integration for a cybersecurity product.</p>
+          <div class="project-stack">
+            <span class="stack-pill">REST API</span>
+            <span class="stack-pill">AWS</span>
+            <span class="stack-pill">Azure DevOps</span>
+            <span class="stack-pill">Selenium</span>
+            <span class="stack-pill">Power BI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- S3 Partners -->
+      <div class="project-card reveal" onclick="openModal('s3')">
+        <div class="project-img-placeholder" style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)">📊</div>
+        <div class="project-body">
+          <div class="project-domain">FinTech · 3i Infotech</div>
+          <div class="project-title">S3 Partners — BLACK App</div>
+          <p class="project-desc">Automated sanity testing for financial data pipelines including Bloomberg vs. FactSet validation and keyword-driven CI/CD integrated suites.</p>
+          <div class="project-stack">
+            <span class="stack-pill">Jenkins</span>
+            <span class="stack-pill">Keyword-Driven</span>
+            <span class="stack-pill">API Testing</span>
+            <span class="stack-pill">Tableau</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Eeforms -->
+      <div class="project-card reveal" onclick="openModal('eeforms')">
+        <div class="project-img-placeholder" style="background:linear-gradient(135deg,#1c0a00,#2d1b00,#1a0a2e)">📋</div>
+        <div class="project-body">
+          <div class="project-domain">Insurance · ADP</div>
+          <div class="project-title">Eeforms — Insurance Platform</div>
+          <p class="project-desc">End-to-end automation for insurance workflows including policy management, claims processing, and eligibility checks with 200+ defect reports.</p>
+          <div class="project-stack">
+            <span class="stack-pill">Java</span>
+            <span class="stack-pill">Selenium</span>
+            <span class="stack-pill">TestNG</span>
+            <span class="stack-pill">Cucumber BDD</span>
+            <span class="stack-pill">Jira</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact">
+  <div class="contact-wrapper">
+    <div class="section-label reveal">Get In Touch</div>
+    <h2 class="section-title reveal">Let's <span>Connect</span></h2>
+
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>
+          I'm always open to discussing new opportunities, interesting projects,
+          or just a chat about test automation and quality engineering.
+          Reach out through any of the channels below.
+        </p>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:Akashlalapnur0426@gmail.com">
+            <div class="contact-link-icon">📧</div>
+            <div>
+              <div style="font-size:0.65rem;color:var(--muted);margin-bottom:2px">EMAIL</div>
+              Akashlalapnur0426@gmail.com
+            </div>
+          </a>
+          <a class="contact-link" href="tel:+919948567506">
+            <div class="contact-link-icon">📱</div>
+            <div>
+              <div style="font-size:0.65rem;color:var(--muted);margin-bottom:2px">PHONE</div>
+              +91 9948567506
+            </div>
+          </a>
+          <a class="contact-link" href="https://www.linkedin.com/in/akash-lalapnur-2a48122bb" target="_blank">
+            <div class="contact-link-icon">💼</div>
+            <div>
+              <div style="font-size:0.65rem;color:var(--muted);margin-bottom:2px">LINKEDIN</div>
+              akash-lalapnur-2a48122bb
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="resume-block reveal">
+        <h3>Download My Resume</h3>
+        <p>Get the full PDF version of my resume with detailed work history and skills.</p>
+        <!--
+          UPDATE the href below to point to your resume file.
+          If hosted on GitHub:
+          href="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/resume.pdf"
+        -->
+        <a href="https://github.com/lalapnurakash/Porfolio_web-Akash/blob/master/Docs/Akash_lalapnur_resume_SDET.pdf" class="btn-primary" download style="display:inline-block;margin-bottom:12px">
+          ↓ &nbsp;Download Resume
+        </a>
+        <br>
+        <div style="margin-top:16px;font-family:var(--font-mono);font-size:0.7rem;color:var(--muted)">
+          Bachelor's Degree · KNRCE Hyderabad · 2016–2019
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Akash Lalapnur</span> · QA Automation Engineer</p>
+  <p>Built with precision — just like my test suites ✦</p>
+</footer>
+
+<!-- MODAL -->
+<div id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+  /* ── SCROLL REVEAL ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ── MODAL DATA ── */
+  const modals = {
+    eai: {
+      title: 'EAI — Enterprise AI',
+      company: 'Solix Technologies · Aug 2025 – Oct 2025',
+      color: '#00e5a0',
+      emoji: '🤖',
+      desc: 'Designed and implemented automated UI functional test scripts for Solix\'s Enterprise AI platform.',
+      points: [
+        'Built automation using <strong>Playwright + Pytest</strong> following the Page Object Model (POM) design pattern',
+        'Developed test scenarios based on business requirements and user workflows',
+        'Documented script usage, execution steps, and maintenance procedures',
+        'Ensured reusability, scalability, and maintainability of test codebase',
+        'Supported team onboarding through comprehensive test coverage documentation'
+      ],
+      stack: ['Playwright', 'Pytest', 'Python', 'POM', 'Git']
+    },
+    cyber: {
+      title: 'CyberSphere',
+      company: 'Deloitte India · Apr 2024 – Jan 2025',
+      color: '#7b5ea7',
+      emoji: '🛡️',
+      desc: 'Full-stack QA automation for a cybersecurity product involving REST API, AWS cloud, and Power BI validation.',
+      points: [
+        'Automated <strong>REST API and Web GUI</strong> test scripts improving regression coverage significantly',
+        'Validated <strong>AWS cloud infrastructure</strong> — S3, RDS, Lambda, Glue, Step Functions, Event Bridges',
+        'Achieved end-to-end system integration testing (UI → Database → AWS)',
+        'Collaborated with stakeholders to automate UAT scenarios using <strong>Azure DevOps</strong>',
+        'Integrated <strong>Power BI</strong> chart components with Databricks data validation',
+        'Achieved <strong>100% defect closure</strong> before all releases'
+      ],
+      stack: ['REST API', 'AWS', 'Selenium', 'Azure DevOps', 'Power BI', 'Databricks', 'Git']
+    },
+    s3: {
+      title: 'S3 Partners — BLACK App',
+      company: '3i Infotech Ltd · Sept 2022 – Nov 2023',
+      color: '#f5a623',
+      emoji: '📊',
+      desc: 'Fintech automation covering financial data validation, keyword-driven testing, and CI/CD integration.',
+      points: [
+        'Automated sanity tests for the BLACK App including file extractions and <strong>ZIP to CSV</strong> conversion',
+        'Validated <strong>Bloomberg</strong> data against <strong>FactSet</strong> for accuracy',
+        'Created keyword-driven automation scripts integrated with <strong>CI/CD (Jenkins)</strong>',
+        'Conducted manual testing for <strong>.NET and Tableau</strong> alongside automated API testing',
+        'Reconciled published data using Beyond Compare; reported to on-site/offshore stakeholders'
+      ],
+      stack: ['Jenkins', 'Keyword-Driven', 'API Testing', 'Tableau', '.NET', 'Beyond Compare']
+    },
+    eeforms: {
+      title: 'Eeforms — Insurance Platform',
+      company: 'ADP · Aug 2020 – Jun 2022',
+      color: '#e06c75',
+      emoji: '📋',
+      desc: 'End-to-end insurance platform QA covering policy, claims, and eligibility automation.',
+      points: [
+        'Designed and executed test cases for compliance with software requirements across admin and business modules',
+        'Automated UI validation for <strong>policy details and premium calculations</strong> using Java + Selenium',
+        'API testing for <strong>claims processing and eligibility checks</strong> with TestNG and Cucumber BDD',
+        'Reported <strong>200+ defects</strong> via Jira; updated regression suites for product enhancements',
+        'Implemented <strong>data-driven testing</strong> with TestNG Data Provider and Extent Reports',
+        'Monitored test results and troubleshot failures via Selenium logs and SQL queries'
+      ],
+      stack: ['Java', 'Selenium', 'TestNG', 'Cucumber BDD', 'Jira', 'SQL']
+    }
+  };
+
+  function openModal(key) {
+    const d = modals[key];
+    const ptsHTML = d.points.map(p => `<li>${p}</li>`).join('');
+    const stackHTML = d.stack.map(s => `<span class="stack-pill">${s}</span>`).join('');
+    document.getElementById('modal-content').innerHTML = `
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px">
+        <div style="font-size:2.8rem">${d.emoji}</div>
+        <div>
+          <h2 style="font-family:var(--font-head);font-size:1.5rem;font-weight:800;letter-spacing:-0.5px">${d.title}</h2>
+          <div style="font-family:var(--font-mono);font-size:0.75rem;color:${d.color};margin-top:4px">${d.company}</div>
+        </div>
+      </div>
+      <p style="color:var(--muted);font-size:0.92rem;margin:16px 0">${d.desc}</p>
+      <ul class="tl-points" style="margin-bottom:20px">${ptsHTML}</ul>
+      <div class="project-stack">${stackHTML}</div>
+    `;
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('modal-overlay')) {
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  function closeModalBtn() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModalBtn(); }
+  });
+</script>
+</body>
+</html>
